@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <title>產品詳情</title>
+  <style>
+    body { font-family: Arial; background: #f4f4f4; margin: 0; padding: 20px; }
+    .product-detail {
+      max-width: 600px;
+      background: white;
+      margin: 40px auto;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      border-radius: 10px;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .price {
+      color: #007acc;
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .desc {
+      font-size: 16px;
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+    a.back-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #007acc;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+    a.back-btn:hover {
+      background: #005a99;
+    }
+  </style>
+</head>
+<body>
+
+<div class="product-detail" id="productDetail">
+  <p>載入中...</p>
+</div>
+
+<script>
+  const products = [
+    { id: 0, name: "MKWI80", price: 1299, desc: "輸出電壓:24V，輸入電壓48V。", img: "https://via.placeholder.com/600x400?text=MKW" },
+    { id: 1, name: "時尚背包", price: 899, desc: "輕量防水設計，適合日常通勤與旅遊。", img: "https://via.placeholder.com/600x400?text=背包" },
+    { id: 2, name: "無線滑鼠", price: 599, desc: "人體工學設計，支援多平台連線。", img: "https://via.placeholder.com/600x400?text=滑鼠" },
+    { id: 3, name: "藍牙喇叭", price: 799, desc: "高保真音效，戶外室內皆適用。", img: "https://via.placeholder.com/600x400?text=喇叭" },
+    { id: 4, name: "USB-C 充電器", price: 499, desc: "快速充電技術，支援筆電與手機雙用。", img: "https://via.placeholder.com/600x400?text=充電器" }
+  ];
+
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+  function renderProduct(id) {
+    const product = products.find(p => p.id === Number(id));
+    const detailDiv = document.getElementById('productDetail');
+    if (!product) {
+      detailDiv.innerHTML = '<p>找不到該產品資訊。</p><a class="back-btn" href="index.html">返回產品列表</a>';
+      return;
+    }
+    detailDiv.innerHTML = `
+      <img src="${product.img}" alt="${product.name}">
+      <h1>${product.name}</h1>
+      <div class="price">NT$${product.price}</div>
+      <div class="desc">${product.desc}</div>
+      <a class="back-btn" href="index.html">返回產品列表</a>
+    `;
+  }
+
+  const productId = getQueryParam('id');
+  renderProduct(productId);
+</script>
+
+</body>
+</html>
